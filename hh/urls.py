@@ -11,7 +11,6 @@ urlpatterns = [
     # path('resume_upload_success/<int:resume_id>/', views.resume_upload_success, name='resume_upload_success'),
     path('', views.index, name='index'),
     path('resume/', views.get_all_resumes, name='get_all_resumes'),
-    path('resume/<str:resume_id>/', views.get_resume, name='get_resume'),
     path('resume/json/', views.get_all_resumes_json, name='get_all_resumes_json'),
     path('resume/<str:resume_id>/', views.get_resume, name='get_resume'),
     path('resume/<str:resume_id>/json/', views.get_resume_json, name='get_resume_json'),

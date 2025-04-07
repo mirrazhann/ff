@@ -12,7 +12,7 @@
         <p>
             Статус: {{resume.status_name}}
             <br>
-            Кому видно: {{resume.type_name}}
+            Кому видно: {{resume.status_type_name}}
         </p>
         <a href="{% url "hh:get_resume" resume.id %}">Подробней</a>
     </div>
