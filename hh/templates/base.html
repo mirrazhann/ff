@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Поиск вакансий{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+    .content-wrapper {
+      min-height: calc(100vh - 120px);
+      background-color: white;
+      padding: 40px 20px;
+    }
+    header {
+      height: 60px;
+    }
+    footer {
+      height: 60px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Хедер -->
+  <header class="bg-dark text-white d-flex align-items-center justify-content-center">
+    <h1 class="h4 m-0">Backend Python</h1>
+    {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-light ms-5">Выйти ({{ user.username }})</button>
+        </form>
+        {% comment %} <span class="btn btn-light ms-5">{{ user.username }}</span> {% endcomment %}
+    {% else %}
+        <a href="{% url 'hh:index' %}" class="btn btn-light ms-5">Войти</a>
+    {% endif %}
+  </header>
+
+  <!-- Контент -->
+  <div class="content-wrapper container">
+    <!-- Заголовки -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+  <!-- Футер -->
+  <footer class="bg-secondary text-white d-flex align-items-center justify-content-center mt-5">
+    <small>&copy; <span id="year"></span></small>
+  </footer>
+
+  <script>
+    // Установка текущего года в футер
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

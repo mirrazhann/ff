@@ -1,0 +1,62 @@
+{% extends "resume_detail_tabs_cols.html" %}
+
+{% block resume_tabs_cols_content %}
+    <h2>Вакансии</h2>
+    {% comment %} <a href="{% url "hh:resume_upload_form" %}">Загрузить резюме</a> {% endcomment %}
+    <br>
+    {% for vacancy in vacancy_list %}
+    <div style="border-bottom: 1px solid #bbb;  padding: 10px 0">
+        <h4><a href="{% url "hh:get_resume_vacancy_detail" resume.id vacancy.id %}">{{vacancy.name}}</a></h4>
+        <span> 
+            <b>
+                {% if vacancy.salary_from != '' and vacancy.salary_to != '' %}
+                {{ vacancy.salary_from }} - {{ vacancy.salary_to }}
+                {% endif %}
+
+                {% if vacancy.salary_from == '' and vacancy.salary_to != '' %}
+                до {{ vacancy.salary_to }}
+                {% endif %}
+
+                {% if vacancy.salary_from != '' and vacancy.salary_to == '' %}
+                от {{ vacancy.salary_from }}
+                {% endif %}
+
+                {% if vacancy.salary_currency != '' %}
+                    {{vacancy.salary_currency}}
+                {% endif %}
+            </b>
+        </span>
+
+        {% if vacancy.salary_mode != '' %}
+           <span>
+                {{ vacancy.salary_mode }}
+           </span> 
+        {% endif %}
+
+        {% if vacancy.salary_gross != '' %}
+           <span>
+                {% if vacancy.salary_gross == true %}
+                    до вычета налогов
+                {% else %}
+                    на руки
+                {% endif %}
+           </span> 
+        {% endif %}
+
+        {% if vacancy.experience != '' %}
+           <p>
+                Опыт работы: {{vacancy.experience}}
+           </p> 
+        {% endif %}
+
+        {% if vacancy.employer_name != '' %}
+           <p>
+                {{vacancy.employer_name}}
+           </p> 
+        {% endif %}
+    </div>
+    {% endfor %}
+
+
+
+{% endblock %}

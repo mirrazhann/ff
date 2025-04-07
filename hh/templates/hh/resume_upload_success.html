@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Рюзюме сохранено{% endblock %}
+
+{% block content %}
+    <h1>Резюме успешно загружено!</h1>
+    <a href="{% url 'hh:resume_upload_form' %}">Загрузить другое резюме</a>
+    <h2>Извлеченный текст:</h2>
+    <pre>{{ resume.text }}</pre>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "resume_detail_tabs_cols.html" %}
+
+{% block resume_tabs_cols_content %}
+
+    <div style="border-bottom: 1px solid #bbb;  padding: 10px 0">
+        <h4>{{vacancy.name}}</h4>
+        <small><a href="{{vacancy.alternate_url}}">Смотреть на hh.kz</a></small><br>
+        <small>Дата публикации: {{ vacancy.published_date}}</small><br>
+        <span> 
+            <b>
+                {% if vacancy.salary_range.from != '' and vacancy.salary_range.to != '' %}
+                {{ vacancy.salary_range.from }} - {{ vacancy.salary_range.to }}
+                {% endif %}
+
+                {% if vacancy.salary_range.from == '' and vacancy.salary_range.to != '' %}
+                до {{ vacancy.salary_range.to }}
+                {% endif %}
+
+                {% if vacancy.salary_range.from != '' and vacancy.salary_range.to == '' %}
+                от {{ vacancy.salary_range.from }}
+                {% endif %}
+
+                {% if vacancy.salary_range.currency != '' %} 
+                    {{vacancy.salary_range.currency}}
+                {% endif %}
+            </b>
+        </span>
+
+        {% if vacancy.salary_range.mode.name != '' %}
+           <span>
+                {{ vacancy.salary_range.mode.name }}
+           </span> 
+        {% endif %}
+
+        {% if vacancy.salary_range.gross != '' %}
+           <span>
+                {% if vacancy.salary_range.gross == true %}
+                    до вычета налогов
+                {% else %}
+                    на руки
+                {% endif %}
+           </span> 
+        {% endif %}
+
+        {% if vacancy.experience != '' %}
+           <p>
+                Опыт работы: {{vacancy.experience.name}}
+           </p> 
+        {% endif %}
+
+        {% if vacancy.schedule.name != '' %}
+           <p>
+                {{vacancy.schedule.name}}
+           </p> 
+        {% endif %}
+
+        {% if vacancy.work_format%}
+           <p>
+            {% for format in vacancy.work_format%}
+                {{format.name}} <br>
+            {% endfor %}
+           </p> 
+        {% endif %}
+
+        {% if vacancy.work_schedule_by_days%}
+           <p>
+                График: {% for schedule in vacancy.work_schedule_by_days %} {{schedule.name}} {% endfor %}
+           </p> 
+        {% endif %}
+
+        {% if vacancy.working_hours %}
+           <p>
+            {% for hours in vacancy.working_hours %} {{hours.name}} {% endfor %}
+           </p> 
+        {% endif %}
+        
+        <div>
+            <h4>Описание вакансии</h4>
+            {{ vacancy.description|safe }}
+        </div>
+        <div>
+            <h4>Ключевые навыки</h4>
+            {% if vacancy.key_skills %}
+                <p>
+                    {% for skill in vacancy.key_skills %} {{skill.name}} {% endfor %}
+                </p> 
+            {% endif %}
+            {% if vacancy.languages %}
+                <p>
+                    {% for skill in vacancy.languages %} {{skill.name}}: {{skill.level.name}}<br> {% endfor %}
+                </p> 
+            {% endif %}
+        </div>
+
+    </div>
+    <p><a href="{% url 'hh:get_resume_vacancy' resume.id %}">Назад к списку вакансий</a></p>
+{% endblock %}

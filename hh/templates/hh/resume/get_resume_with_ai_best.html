@@ -1,0 +1,11 @@
+{% extends "resume_detail_tabs_cols.html" %}
+
+{% block resume_tabs_cols_content %}
+
+    <h5>Рекомендации:</h5>
+    {% for message in ai_text %}
+        {% for item in message.content %}
+            <div>{{ item.text|linebreaks }}</div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

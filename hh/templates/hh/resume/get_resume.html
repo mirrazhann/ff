@@ -1,0 +1,84 @@
+<!-- templates/resume_page.html -->
+{% extends "resume_detail_tabs.html" %}
+
+{% block resume_tabs_content %}
+    <div class="mb-5">
+        <b>Видимость резюме</b> <br>
+        Статус: {{ resume.status.name }} <br>
+        Видимость: {{ resume.access.type.name }} <br>
+    </div>
+
+    <div class="mb-5">
+        <h5>Цель</h5>
+        {{resume.skills}}
+    </div>
+    <div class="mb-5">
+        <h5>График работы</h5>
+        Занятость: {% for employment in resume.employments%} {{employment.name}}; {% endfor %} <br>
+        График работы: {% for schedul in resume.schedules%} {{schedul.name}}; {% endfor %} <br>
+    </div>
+
+    <div class="mb-5">
+        <h5>Навыки</h5>
+        <p> 
+            {% for skill in resume.skill_set %}
+                {{skill}}; 
+            {% endfor %}
+        </p>
+        <h5>Языки</h5>
+        <p> 
+            {% for lang in resume.language %}
+                {{lang.name}} - {{lang.level.name}}; <br>
+            {% endfor %}
+        </p>
+    </div>
+
+    <div class="mb-5">
+        <h5>Рабочий стаж</h5>
+        {% for experience in resume.experience %}
+            <div class="border-bottom border-secondary border-1 mb-4"> 
+                <span class="text-secondary">
+                    {{experience.start}} - {%if experience.end%} {{experience.end}} {%else%} по настоящее время {% endif %}
+                </span>
+                <p><b>{{experience.company}}</b> {{experience.position}}</p>
+                <p>{{experience.description}}</p>
+            </div>     
+        {% endfor %}
+    </div>
+
+    <div class="mb-5">
+        <h5>Образование ({{resume.education.level.name}})</h5>
+        {% for education in resume.education.primary %}
+            <p> 
+                {{education.name}}<br>
+                {{education.result}}<br>
+                Год выпуска: {{education.year}}<br>
+            </p>     
+        {% endfor %}
+    </div>
+
+    {% if resume.education.additional %}
+        <div class="mb-5">
+            <h5>Доп.Образование</h5>
+            {% for education in resume.education.additional %}
+            <p>
+            <span class="text-secondary">{{education.year}}</span><br>
+                {{education.organization}}<br>
+                {{education.name}}
+            </p>
+            {% endfor %}
+        </div>
+        <div class="mb-5">
+            <h5>Аттестаты</h5>
+            {% for education in resume.education.attestation %}
+            <p>
+                <span class="text-secondary">{{education.year}}</span><br>
+                {{education.organization}}<br>
+                {{education.name}}
+            </p>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+

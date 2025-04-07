@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}ОШИБКА{% endblock %}
+
+{% block content %}
+    <h2>Ошибка!</h2>
+    <br>
+    <b>{{error}}</b>
+    
+    <p><a href="{% url 'hh:get_all_resumes' %}">к списку резюме</a></p>
+{% endblock %}

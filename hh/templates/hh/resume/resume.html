@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Мои резюме{% endblock %}
+
+{% block content %}
+    <h2>Мои резюме</h2>
+    {% comment %} <a href="{% url "hh:resume_upload_form" %}">Загрузить резюме</a> {% endcomment %}
+    <br>
+    {% for resume in resumes %}
+    <div style="border-bottom: 1px solid #bbb;  padding: 10px 0">
+        <h3>{{resume.title}}</h3>
+        <p>
+            Статус: {{resume.status_name}}
+            <br>
+            Кому видно: {{resume.type_name}}
+        </p>
+        <a href="{% url "hh:get_resume" resume.id %}">Подробней</a>
+    </div>
+    {% endfor %}
+{% endblock %}
